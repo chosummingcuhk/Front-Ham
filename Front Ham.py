@@ -106,3 +106,32 @@ class FrontHamGame:
 
     def is_game_over(self):
         return sum(self.active_players) <= 1
+
+if __name__ == "__main__":
+    game = FrontHamGame()
+    print("Initial state:", game.sock_counts)
+
+    # Player 0 takes 3 socks from color 0 and puts one back
+    action_take = [3, 0, 0, 0, 0]
+    put_color = 0
+    state, done, eliminated = game.step(0, action_take, put_color)
+    print("After action:", game.sock_counts)
+    print("Eliminated players:", eliminated)
+    print("Game over?", done)
+
+from abstract_agent import FrontHamEnv
+env = FrontHamEnv()
+obs = env.reset()
+
+while not env.done:
+    player = env.current_player
+    print(f"Player {player}'s turn. Observing...")
+    print(obs)
+
+    # Dummy action: remove 3 socks of color 0, add 1 of color 1
+    action = ([0, 0, 0], 1)
+    obs, reward, done, info = env.step(player, *action)
+
+print("Game over!")
+if reward == 1:
+    print(f"Player {next(iter(env.active_players))} won!")
