@@ -1,6 +1,5 @@
 import numpy as np
 import random
-from collections import defaultdict
 from gymnasium import Env
 from gymnasium.spaces import Discrete, Box
 
@@ -63,7 +62,7 @@ class FrontHamGame(Env):
             valid, action = self._validate_standard_action(action, own_color)
 
         if not valid:
-            return self._get_observation(), -1, True, {'invalid_action': True}
+            return self._get_observation(), -1, False, {'invalid_action': True}
 
         # Apply action
         for removal in action['removals']:
@@ -103,28 +102,42 @@ class FrontHamGame(Env):
         if len(action['removals']) != 3:
             return False, None
 
-        # Check for invalid removals
-        removal_counts = defaultdict(int)
+        # Reject No-Op in removals
+        if self.NO_OP in action['removals']:
+            return False, None
+
+        # Check for invalid removals (no need for defaultdict since all are valid colors)
+        removal_counts = {}
         for color in action['removals']:
-            if color != self.NO_OP:
-                removal_counts[color] += 1
-                if self.sock_counts[color] < removal_counts[color]:
-                    return False, None
+            # Count removals per color
+            removal_counts[color] = removal_counts.get(color, 0) + 1
+            if self.sock_counts[color] < removal_counts[color]:
+                return False, None
+
+        # Reject No-Op in addition
+        if action['addition'] == self.NO_OP:
+            return False, None
 
         # Check addition validity
-        if action['addition'] != self.NO_OP:
-            if self.sock_counts[action['addition']] == 0:
-                return False, None
+        if self.sock_counts[action['addition']] == 0:
+            return False, None
 
         return True, action
 
     def _validate_final_action(self, action, own_color):
         """Validate action for final phase"""
+
         # No-Ops are allowed, but must result in elimination
         removals = [r for r in action['removals'] if r != self.NO_OP]
-
+        print(removals)
         # Check if removals target single color
+        # Standard 3+1 actions still allowed
+        if len(removals)==3:
+            return self._validate_standard_action(action, own_color)
         if len(set(removals)) > 1:
+            print('hi')
+            print(action)
+            print(own_color)
             return False, None
 
         if removals:
@@ -144,8 +157,7 @@ class FrontHamGame(Env):
                 return True, {'removals': [target_color, target_color, target_color],
                               'addition': self.NO_OP}
 
-        # Standard 3+1 actions still allowed
-        return self._validate_standard_action(action, own_color)
+
 
     def _check_eliminations(self):
         """Check and process eliminations"""
@@ -169,14 +181,60 @@ if __name__ == "__main__":
     env = FrontHamGame()
     obs = env.reset()
 
-    for _ in range(100):  # Limit episodes for testing
-        action = {
-            'removals': random.sample(env.COLORS, 3),
-            'addition': random.choice(env.COLORS)
-        }
-        obs, reward, done, info = env.step(action)
-        env.render()
+    action = {'removals': ['green', 'purple', 'blue'], 'addition': 'blue'}
+    env.step(action)
+    env.render()
+    action = {'removals': ['green', 'purple', 'blue'], 'addition': 'blue'}
+    env.step(action)
+    env.render()
+    action = {'removals': ['green', 'purple', 'blue'], 'addition': 'blue'}
+    env.step(action)
+    env.render()
+    action = {'removals': ['green', 'purple', 'blue'], 'addition': 'blue'}
+    env.step(action)
+    env.render()
+    action = {'removals': ['green', 'purple', 'blue'], 'addition': 'blue'}
+    env.step(action)
+    env.render()
+    action = {'removals': ['green', 'purple', 'blue'], 'addition': 'blue'}
+    env.step(action)
+    env.render()
+    action = {'removals': ['yellow', 'red', 'blue'], 'addition': 'blue'}
+    env.step(action)
+    env.render()
+    action = {'removals': ['yellow', 'red', 'blue'], 'addition': 'yellow'}
+    env.step(action)
+    env.render()
+    action = {'removals': ['yellow', 'red', 'blue'], 'addition': 'blue'}
+    env.step(action)
+    env.render()
+    action = {'removals': ['yellow', 'red', 'blue'], 'addition': 'yellow'}
+    env.step(action)
+    env.render()
+    action = {'removals': ['yellow', 'red', 'blue'], 'addition': 'blue'}
+    env.step(action)
+    env.render()
+    action = {'removals': ['yellow', 'red', 'blue'], 'addition': 'yellow'}
+    env.step(action)
+    env.render()
+    action = {'removals': ['yellow', 'yellow', 'blue'], 'addition': 'yellow'}
+    env.step(action)
+    env.render()
+    action = {'removals': ['blue', 'blue', 'no_op'], 'addition': 'no_op'}
+    a, b, c, d=env.step(action)
+    env.render()
+    print(a)
+    print(b)
+    print(c)
+    print(d)
+    # for _ in range(100):  # Limit episodes for testing
+        # action = {
+        #     'removals': random.sample(env.COLORS, 3),
+        #     'addition': random.choice(env.COLORS)
+        # }
+        # obs, reward, done, info = env.step(action)
+        # env.render()
 
-        if done:
-            print("Game ended!")
-            break
+        # if done:
+        #     print("Game ended!")
+        #     break
