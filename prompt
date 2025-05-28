@@ -9,3 +9,5 @@ Handle eliminations after a player has done all their moves, except for the fina
 In that case, if the sock count reaches zero at any point, the player is eliminated.
 Players cannot be revived unless the sock count goes from 1 to 0 then to 1 during one round due to a player taking off and putting on a sock of the same color.
 Make the code more conducive to RL by creating an API of some sort to allow agents to observe the game state and choose actions.
+Agents should be able to see the actions that other agents have taken up to but not including the agent's last move.
+The order that the agents play in should be fixed beforehand, randomly.
