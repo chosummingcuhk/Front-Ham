@@ -1,6 +1,4 @@
-give a template for coding a game in python for reinforcement learning
-
-The game is called front ham. Create python code for the game. The rules are as follows.
+The game is called front ham. Create python code for the game to be used for reinforcement learning. The rules are as follows.
 It consists of 5 players, with 5 corresponding colors.
 There are 6 socks hung on a clothes line for each of the 5 colors.
 Each player only knows their own color, and does not know the colors corresponding to the others.
