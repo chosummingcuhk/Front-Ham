@@ -1,120 +1,60 @@
-# Front-Ham
-Taskmaster S19E4 Live Task
+# Front Ham
+### Taskmaster S19E4 Live Task _Extended_ Rules
 
-### **Front Ham Game Rules**  
+## **Front Ham Game Rules**  
+
+---
+
+### **General Principles** 
+**1. Self-elimination**
+- **Not** prohibited.
+
+**2. Introduction of `No-Op`**
+- `No-Op`s (no-operation) are introduced for programming convenience.
+- See appendix for details.
+
+**3. Invalid Moves**  
+- Any removal that would result in **negative sock counts** at any point is **invalid**.
+- Any sock additions to **eliminated players** at any point is **invalid**.
+  - It implies that no revival is possible after a player has been eliminated.
 
 ---
 
 #### **Standard Play (More Than 2 Players)**  
 **1. Turns & Actions**  
 - Players take turns in a **fixed, randomized order**.  
-- Each player must submit an action:  
-  - **Removals**: 3 valid removals (colors only, no `No-Op`).  
-  - **Addition**: Add 1 sock to any color (including eliminated colors).  
+- Each player must perform an action, comprised of:  
+  - **Removals**: 3 valid removals.  
+  - **Addition**: 1 valid addition.  
   - Example: `[Red, Blue, Green]` + `Yellow`.  
 
-**2. Invalid Moves**  
-- Any action that would result in **negative sock counts** at any point is **invalid**.  
-  - Example: Attempting to remove 2 socks from a color with only 1 sock → invalid.  
-
-**3. Elimination**  
-- **Checked after the full action (removals + addition)**.  
-- If a player’s sock count is **0 at the end of their turn**, they are **eliminated permanently**.  
-
-**4. Revival**  
-- **No revival**: Once eliminated, players stay out permanently.  
+**2. Elimination**  
+- **Checked and effected after the full action (removals + addition)**.  
+- If a player’s sock count is **0 at the end of any player's turn**, they are **eliminated permanently**.
 
 ---
 
 #### **Final Phase (Endgame: 2 Players Left)**  
-**1. Turns & Actions**  
-- Players can use **restricted No-Op actions** to terminate removal processing early.  
-- **Valid No-Op Formats**:  
-  - `[Color, No-Op, No-Op]`: Remove 1 sock from a single color, then stop.  
-  - `[Color, Color, No-Op]`: Remove 2 socks from a single color, then stop.  
-- **All-No-Op actions are disallowed** (must remove at least 1 sock).  
-- **Addition Step**:  
-  - If **No-Op is used**, the **addition step is skipped entirely**.  
-  - If **no No-Op is used**, proceed with normal addition.  
+**1. Turns & Actions**
+- The two remaining Players alternate, in accordance with the randomized order established previously.
+- Players can only use `No-Op`s when it is possible to eliminate a player with some (one or two) removals, and they wish to end the game.  
 
-**2. Invalid Moves**  
-- Any action that would result in **negative sock counts** at any point is **invalid**.  
-  - Example: Attempting to remove 2 socks from a color with 1 sock → invalid.  
-- Invalid removals (e.g., targeting 0-sock colors) are ignored (treated as `No-Op`).  
-
-**3. Immediate Elimination Rule**  
-- **If No-Op is used in removals**:  
-  - If any removal step reduces a player’s sock count to **0**, the game ends **immediately**.  
-  - **Addition step is skipped**, so revival is **impossible**.  
-- **If No-Op is not used**:  
-  - Elimination is checked after each removal step.  
-    - If a player’s sock count drops to 0:  
-      - If **addition color ≠ eliminated player’s color** → Game ends immediately.  
-      - If **addition color = eliminated player’s color** → Game continues (elimination checked at end of turn).  
-
-**4. Revival**  
-- **Only possible if No-Op is not used and addition color matches the eliminated player’s color**.  
-  - Example: Player B removes Player A’s last sock (A=0), then adds to A (A=1) → A survives.  
-- **Self-Revival**:  
-  - A player can revive themselves by reducing their sock count to 0 and restoring it via addition.  
-  - Example: Player B (1 sock) removes it (0), then adds back (1) → survives.  
-
-**5. Self-Elimination**  
-- If a player removes all their socks and does **not add back**, they are eliminated.  
+**2. Immediate Elimination (sudden death)**
+- **This rule will only be applied if a valid action containing `No-Op`(s) have been submitted.** Otherwise, the elimination rule in **standard play** is used.
+- The game will end once a player's sock reaches 0.
 
 ---
 
-### **Key Mechanics Recap**  
-- **Standard Play**:  
-  - All actions must be 3 removals + 1 addition.  
-  - No negative sock counts allowed.  
-  - Eliminations checked at end of turn.  
-- **Final Phase**:  
-  - Restricted No-Op actions allowed.  
-  - **Immediate Elimination**:  
-    - Triggered by No-Op + sock count = 0 (addition skipped).  
-    - Triggered by removals (no No-Op) + sock count = 0 + addition ≠ eliminated player’s color.  
-  - **Delayed Elimination**:  
-    - Removals (no No-Op) + sock count = 0 + addition = eliminated player’s color → survival if restored.  
-  - **Revival**: Only possible without No-Op and with matching addition color.  
-
----
-
-### **Example Scenarios**  
-
-#### **Scenario 1: Immediate Elimination with No-Op**  
-- **Initial State**: Player A (1 sock), Player B (acting).  
-- **Action**:  
-  - Removals: `[A, No-Op, No-Op]` (No-Op used → addition skipped).  
-- **Result**:  
-  - A’s sock count = 0 → **A eliminated immediately** (addition skipped).  
-
-#### **Scenario 2: Opponent Revival Without No-Op**  
-- **Initial State**: Player A (1 sock), Player B (acting).  
-- **Action**:  
-  - Removals: `[A, A, A]` (no No-Op → addition allowed).  
-  - Addition: `A`.  
-- **Result**:  
-  - A’s sock count: 1 → 0 → 1 → **A survives**.  
-
-#### **Scenario 3: Invalid Action (Negative Socks)**  
-- **Initial State**: Player A (1 sock), Player B (acting).  
-- **Action**:  
-  - Removals: `[A, A, A]` (invalid: removing 3 socks from A with 1 sock).  
-- **Result**:  
-  - Action is **invalid** → rejected.  
-
-#### **Scenario 4: Strategic No-Op**  
-- **Initial State**: Player A (2 socks), Player B (acting).  
-- **Action**:  
-  - Removals: `[A, A, No-Op]` (No-Op used → addition skipped).  
-- **Result**:  
-  - A’s sock count = 0 → **A eliminated immediately** (addition skipped).  
-
----
-
-### **Why This Works**  
-- **Clarity**: Rules cleanly divided into Standard Play and Final Phase.  
-- **Balance**: No-Op adds strategic depth but sacrifices revival opportunities.  
-- **Invalid Move Handling**: Prevents negative sock counts, ensuring valid gameplay.  
-- **Tactical Final Phase**: Players must weigh risks of aggressive No-Op tactics vs. revival-focused strategies.
+### **Appendix**  
+- As `No-Op`s are introduced for convenience, their use mirrors the constraints of the physical game.
+- They are not intended to substantively alter the rules of the game.
+- **Valid `No-Op`-containing actions**:  
+  - `[Color, No-Op, No-Op] + No-Op`: Remove 1 sock of the specified color.  
+  - `[Color, Color, No-Op] + No-Op`: Remove 2 socks of the specified colors.
+  - `[Color, Color, Color] + No-Op`: Remove 3 socks of the specified colors. **Allowed only when the player wins the game through this move.**  
+- **Invalid `No-Op`-containing actions**:  
+  - `[No-Op, No-Op, No-Op] + No-Op` must remove at least 1 sock. 
+  - `[No-Op, No-Op, No-Op] + Color` the use of `No-Op`s requires forgoing adding 1 sock.
+  - `[Color, No-Op, No-Op] + Color`
+  - `[Color, Color, No-Op] + Color`
+  - `[Color, Color, Color] + Color`
