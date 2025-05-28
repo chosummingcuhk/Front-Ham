@@ -1,0 +1,13 @@
+give a template for coding a game in python for reinforcement learning
+
+The game is called front ham. Create python code for the game. The rules are as follows.
+It consists of 5 players, with 5 corresponding colors.
+There are 6 socks hung on a clothes line for each of the 5 colors.
+Each player only knows their own color, and does not know the colors corresponding to the others.
+Each player has to take 3 socks off and put 1 sock on. There are no restrictions on the colors of the socks taken off and put on, except that the socks have to be of 1 of the 5 colors.
+If there are no socks of a color remaining on the clothes line, the player corresponding to that color is eliminated.
+This is repeated until there is only one standing.
+Handle eliminations after a player has done all their moves.
+
+Players cannot be revived unless the sock count goes from 1 to 0 then to 1 during one round due to a player taking off and putting on a sock of the same color.
+Make the code more conducive to RL by creating an API of some sort to allow agents to observe the game state and choose actions.
