@@ -10,7 +10,7 @@
 - **Socks**: 6 socks per color are publicly visible on a clothesline (all players know the current sock counts for every color).  
 - **Goal**: Eliminate players by reducing their color’s sock count to 0. The last player remaining wins.  
 - **Sock Counts**: All players know how many socks remain for every color (public information).  
-- **Elimination**: Players can deduce who was eliminated by tracking which color’s sock count reached 0.  
+- **Known**: Players can deduce who was eliminated by tracking which color’s sock count reached 0.  
 - **Unknown**: Players do not know which other player corresponds to which color.  
 ---
 
