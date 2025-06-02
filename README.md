@@ -28,7 +28,7 @@
   - It implies that no revival is possible after a player has been eliminated.
 
 ---
-### **Turn Order**  
+### **Order of Play**  
 - Players take turns in a **fixed, randomized order** (decided at the start).  
 - Turns proceed until only **2 players remain**, after which the game enters the **Final Phase**.  
 ---
