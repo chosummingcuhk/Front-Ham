@@ -1,7 +1,7 @@
 import numpy as np
 import random
 from gymnasium import Env
-from gymnasium.spaces import Discrete, Box
+# from gymnasium.spaces import Discrete, Box
 
 
 class FrontHamGame(Env):
@@ -9,11 +9,11 @@ class FrontHamGame(Env):
     NO_OP = 'no_op'
 
     def __init__(self):
-        # Action space: 3 removals + 1 addition (each action: 5 colors + 1 no-op)
-        self.action_space = Box(low=0, high=1, shape=(5,))  # Simplified for demonstration
-
-        # Observation space: sock counts (0-6 per color) + own color index
-        self.observation_space = Box(low=0, high=6, shape=(5,))
+        # # Action space: 3 removals + 1 addition (each action: 5 colors + 1 no-op)
+        # self.action_space = Box(low=0, high=1, shape=(5,))  # Simplified for demonstration
+        #
+        # # Observation space: sock counts (0-6 per color) + own color index
+        # self.observation_space = Box(low=0, high=6, shape=(5,))
 
         self.reset()
 
@@ -156,6 +156,7 @@ class FrontHamGame(Env):
             if required_removals == 3 and len(removals) == 3:
                 return True, {'removals': [target_color, target_color, target_color],
                               'addition': self.NO_OP}
+        return False, None
 
 
 
