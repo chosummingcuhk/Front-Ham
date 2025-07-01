@@ -1,6 +1,8 @@
 # Front Ham
 ### Taskmaster S19E4 Live Task _Extended_ Rules
 
+#### Contributions are welcome.
+
 ## **Front Ham Game Rules**  
 
 ---
