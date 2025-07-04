@@ -23,7 +23,7 @@ try:
                         del state[i]
                 for x in state:
                     result.write(x[0][0])
-                    result.write(str(x[1]))
+                    result.write(f'{x[1]:x}')
                 result.write('|')
                 game_length[-1] += 1
             #endgame
